@@ -2,21 +2,33 @@ package main
 
 import "fmt"
 
-func Hello(s, lang string) string {
-	prefix := map[string]string{
-		"English" : "Hello, ", 
-		"Spanish" : "Hola, ", "French": "Bonjour, ",
-	}
-	
-	if s == "" {
-		s = "world."
-	}
-	
-	if _, ok := prefix[lang]; !ok {
-		lang = "English"
+const (
+	spanish = "Spanish"
+	french  = "French"
+
+	englishPrefix = "Hello, "
+	spanishPrefix = "Hola, "
+	frenchPrefix  = "Bonjour, "
+)
+
+func Hello(name, lang string) string {
+	if name == "" {
+		name = "world."
 	}
 
-	return prefix[lang] + s
+	return greetingPrefix(lang) + name
+}
+
+func greetingPrefix(lang string) (prefix string) {
+	switch lang {
+	case spanish:
+		prefix = spanishPrefix
+	case french:
+		prefix = frenchPrefix
+	default:
+		prefix = englishPrefix
+	}
+	return
 }
 
 func main() {
